@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+      <meta name="description" content="<%= htmlWebpackPlugin.options.title %>"/>
+      <meta name="keywords" content="ZJINH"/>
+      <meta name="author" content="ZJINH,zjinh, 2665229856.com"/>
+      <meta name="robots" content="ZJINH,zjinh,<%= htmlWebpackPlugin.options.title %>,Cloud,cloud"/>
+      <meta name="renderer" content="webkit">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta http-equiv="Cache-Control" content="no-siteapp" />
+      <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+      <% if (config.needMap) { %>
+      <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=b2e49217cd7f26ce7011cab1d1cdb228"></script>
+      <% } %>
+  </head>
+  <body oncontextmenu = "return false" data-build-time="<%= config.buildTime %>">
+    <noscript>
+      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <div id="app">
+        <router-view></router-view>
+    </div>
+    <!-- built files will be auto injected -->
+    <% if (config.needMap) { %>
+    <div id="amap-area"></div>
+    <% } %>
+  </body>
+  <% if (config.runType==='web') { %>
+  <script>
+      async function sendNotification() {
+          let result = await Notification.requestPermission()
+          if (result === 'denied' || result === 'default') {
+              throw Error('申请通知权限时被用户拒绝。')
+          }
+      }
+      sendNotification();
+  </script>
+  <% } %>
+  <% if (config.useDevTools) { %>
+  <script>
+      let obj={
+          text:"愿每个人都被时光温柔以待",
+          hope:'万事胜意'
+      }
+      console.log(obj.text);
+      console.log(obj.hope);
+      setInterval(function() {
+          check()
+      }, 2000);
+      const check = function() {
+          function doCheck(a) {
+              if (("" + a/a)["length"] !== 1 || a % 20 === 0) {
+                  (function() {}
+                      ["constructor"]("debugger")())
+              } else {
+                  (function() {}
+                      ["constructor"]("debugger")())
+              }
+              doCheck(++a)
+          }
+          try {
+              doCheck(0)
+          } catch (err) {}
+      };
+      check();
+  </script>
+  <% } %>
+  <script>
+      window.onblur = function () {
+          document.onmouseup && document.onmouseup();
+      };
+  </script>
+  <script src="/aria2/aria2.js"></script>
+</html>
