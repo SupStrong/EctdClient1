@@ -13,7 +13,7 @@ client.scp(
     host: "106.13.238.154", // 服务器的IP地址
     port: "22", // 服务器端口， 一般为 22
     username: "root", // 用户名
-    password: "liu123456!", // 密码
+    password: "yoyo123456!", // 密码
     path: "/var/www/EctdClient_admin", // 项目部署的服务器目标位置(注意是放前端文件的文件夹路径)
   },
   (err) => {

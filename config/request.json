@@ -1,14 +1,14 @@
 {
   "development": {
-    "url": "http://127.0.0.1:3000",
+    "url": "http://106.13.238.154:3000",
     "oss": "https://aliyun-wb-bvqq7ezi1t.oss-cn-beijing.aliyuncs.com",
-    "updateUrl": "http://127.0.0.1:8080/",
-    "diskWebUrl": "http://127.0.0.1:8080"
+    "updateUrl": "http://127.0.0.1:8000/",
+    "diskWebUrl": "http://127.0.0.1:8000"
   },
   "production": {
-    "url": "http://127.0.0.1:3000",
+    "url": "http://106.13.238.154:3000",
     "oss": "https://aliyun-wb-bvqq7ezi1t.oss-cn-beijing.aliyuncs.com",
-    "updateUrl": "http://127.0.0.1:8080/",
-    "diskWebUrl": "http://127.0.0.1:8080"
+    "updateUrl": "http://127.0.0.1:8000/",
+    "diskWebUrl": "http://127.0.0.1:8000"
   }
 }

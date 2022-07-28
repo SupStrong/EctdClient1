@@ -8,7 +8,7 @@
 				</p>
 
 				<div class="logo">
-					<img src="http://106.13.238.154:3000/_nuxt/img/logo.7793f60.png" alt="" />
+					<img src="https://aliyun-wb-bvqq7ezi1t.oss-cn-beijing.aliyuncs.com//image/2022/6-28/logo.png" alt="" />
 				</div>
 				<div class="nav">
 					<!-- <div class="nav-list">
