@@ -9,24 +9,6 @@ export default {
 	name: 'app',
 	created() {
 		this.$disableDrag();
-
-		// 		this.$api.user.login({
-		// 			username:123,
-		// 			password:123
-		// 		},()=>{
-		// 			alert()
-		// 		},()=>{
-
-		// 		})
-
-		// this.$api.user.login({
-		// 			username:123,
-		// 			password:123
-		// 		}).then(()=>{
-
-		// 		}).catch(()=>{
-
-		// 		})
 	},
 };
 </script>

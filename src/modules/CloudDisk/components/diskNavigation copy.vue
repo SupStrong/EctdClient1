@@ -301,33 +301,18 @@
 			<p><i class="sf-icon-info-circle" /> 回收站仍然占用网盘空间，文件保存10天后将被自动清除</p>
 		</div>
 		<ectd-import v-model="showEctdImport"></ectd-import>
-		<!-- <sampleData v-model="showSample" status="news" @input="showSample = false"></sampleData>
-		<brandData v-model="showBrand" status="news" @input="showBrand = false"></brandData>
-		<classifyData v-model="showClassify" status="news" @input="showClassify = false"></classifyData>
-		<companyData v-model="showCompany" status="news" @input="showCompany = false"></companyData>
-		<imgTextData v-model="showImgText" status="news" @input="showImgText = false"></imgTextData> -->
 	</div>
 </template>
 
 <script>
 import screenfull from 'screenfull'; //引入依赖
 import ectdImport from './ectdcpn/importFile.vue';
-import sampleData from './sampleData.vue';
-import brandData from './brandData.vue';
-import classifyData from './classifyData.vue';
-import companyData from './companyData.vue';
-import imgTextData from './imgTextData.vue';
 import html2canvas from 'html2canvas'; //生成图片
 import $ from 'jquery';
 export default {
 	name: 'diskNavigation',
 	components: {
-		ectdImport,
-		sampleData,
-		brandData,
-		classifyData,
-		companyData,
-		imgTextData,
+		ectdImport
 	},
 	props: {
 		type: String,

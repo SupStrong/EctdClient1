@@ -23,7 +23,6 @@ function tryGetModuleRoute() {
 	try {
 		let route = require(`./modules/${projectConfig.projectName}/router/index`).default;
 		route.routes = [...route.routes, ...commonRouter];
-		// route.mode =" route.mode ? route.mode : mode";
 		route.mode = 'history';
 		return new VueRouter(route);
 	} catch (e) {

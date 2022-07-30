@@ -6,31 +6,40 @@
 				<p class="multibtn" @click="handleCollapse" multibtn>
 					<i class="el-icon-s-fold"></i>
 				</p>
-
 				<div class="logo">
 					<img src="https://aliyun-wb-bvqq7ezi1t.oss-cn-beijing.aliyuncs.com//image/2022/6-28/logo.png" alt="" />
 				</div>
-				<div class="nav">
-					<!-- <div class="nav-list">
-						<div>热门模板</div>
-						<div></div>
-					</div> -->
+				<div class="nav full-screen">
+					<p class="multibtn" @click="handleChange('fullScreen')" multibtn>
+						<i class="iconfont" :class="isFullFlag ? 'icon-quanping1' : 'icon-tuichuquanping'"></i>
+					</p>
 				</div>
 			</div>
 			<div class="login">
-				<div class="btns">登录</div>
-				<div class="btns">注册</div>
+				<el-dropdown :hide-on-click="false" placement="bottom" @command="handleCommand">
+					<div class="userlable">
+						<div class="avatar_img_box">
+							<span>{{userData.name}}</span>
+						</div>
+						<span class="menu"></span>
+					</div>
+					<template v-slot:dropdown>
+						<el-dropdown-menu style="width: 140px">
+							<!-- <el-dropdown-item command="userInfo">个人中心</el-dropdown-item> -->
+							<el-dropdown-item command="logout">退出登录</el-dropdown-item>
+						</el-dropdown-menu>
+					</template>
+				</el-dropdown>
 			</div>
 		</header>
 	</section>
 </template>
 
 <script>
-import diskUser from './diskUser';
+import screenfull from 'screenfull'; //引入依赖
 export default {
 	name: 'diskHeader',
 	components: {
-		diskUser,
 	},
 	data() {
 		return {
@@ -44,8 +53,10 @@ export default {
 					win.hide();
 				},
 			},
-			navTypes: [
-			],
+			isFullFlag: false,
+			isFullscreen: false,
+			navTypes: [],
+			userData:{},
 			platform: process.platform,
 		};
 	},
@@ -53,10 +64,10 @@ export default {
 		data: {
 			type: Object,
 		},
-		isCollapse:{
+		isCollapse: {
 			type: Boolean,
-			default :function () {
-				return  false;
+			default: function () {
+				return false;
 			},
 		},
 		type: {
@@ -65,6 +76,17 @@ export default {
 				return 'disk';
 			},
 		},
+	},
+	mounted() {
+		this.userData = JSON.parse(localStorage.getItem('user'));
+		// 监听页面全屏
+		window.addEventListener('fullscreenchange', (e) => {
+			if (screenfull.isFullscreen) {
+				this.isFullFlag = true;
+			} else {
+				this.isFullFlag = false;
+			}
+		});
 	},
 	computed: {
 		sizeTips() {
@@ -79,8 +101,24 @@ export default {
 		},
 	},
 	methods: {
-		handleCollapse(){
+		handleCollapse() {
 			this.$emit('handleClick', !this.isCollapse);
+		},
+		handleCommand(command) {
+			if (command === 'logout') {
+				this.$api.user.logout(() => {
+					this.$router.push('/login');
+				});
+			} else if (command === 'userInfo') {
+				console.log('个人中心');
+			}
+		},
+		handleChange(type) {
+			if (!screenfull.isEnabled) {
+				this.$message('您的浏览器不能全屏');
+				return false;
+			}
+			screenfull.toggle();
 		},
 		navTypeChange(value) {
 			this.$emit('update:type', value);
@@ -114,6 +152,23 @@ export default {
 		height: 100%;
 	}
 }
+.avatar_img_box {
+	height: 35px;
+	width: 35px;
+	border-radius: 25px;
+	margin-right: 10px;
+	background-color: #386893;
+	overflow: hidden;
+	margin-left: 20px;
+	span {
+		margin-left: 0;
+		line-height: 35px;
+		color: #fff;
+		display: block;
+		text-align: center;
+		letter-spacing: 2px;
+	}
+}
 .nav {
 	width: 100%;
 	display: flex;
@@ -130,8 +185,9 @@ export default {
 	display: flex;
 	align-items: center;
 	.btns {
-		width: 75px;
-		height: 35px;
+		width: 65px;
+		height: 30px;
+		font-size: 12px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -153,21 +209,38 @@ export default {
 		font-size: 14px;
 	}
 }
-.multibtn{
+.full-screen {
+	justify-content: flex-end;
+	font-size: 22px;
+}
+.multibtn {
 	width: 38px;
-    max-width: 38px;
-    height: 38px;
-    max-height: 38px;
-    font-size: 18px;
-    border-radius: 38px;
-    margin: 2px;
-    cursor: pointer;
-    display: inline-flex;
-    vertical-align: middle;
-		i{
-			color:white;
-			display: flex;
-			align-items: center;
-		}
+	max-width: 38px;
+	height: 38px;
+	max-height: 38px;
+	font-size: 18px;
+	border-radius: 38px;
+	margin: 2px;
+	cursor: pointer;
+	display: inline-flex;
+	vertical-align: middle;
+	i {
+		color: white;
+		display: flex;
+		align-items: center;
+	}
+}
+.userlable {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	color: white;
+	cursor: pointer;
+	img {
+		width: 25px;
+		border-radius: 25px;
+		height: 25px;
+		margin-right: 10px;
+	}
 }
 </style>

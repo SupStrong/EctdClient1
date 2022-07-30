@@ -169,22 +169,12 @@
 <script>
 import screenfull from 'screenfull'; //引入依赖
 import ectdImport from './ectdcpn/importFile.vue';
-import sampleData from './sampleData.vue';
-import brandData from './brandData.vue';
-import classifyData from './classifyData.vue';
-import companyData from './companyData.vue';
-import imgTextData from './imgTextData.vue';
 import html2canvas from 'html2canvas'; //生成图片
 import $ from 'jquery';
 export default {
 	name: 'diskNavigation',
 	components: {
 		ectdImport,
-		sampleData,
-		brandData,
-		classifyData,
-		companyData,
-		imgTextData,
 	},
 	props: {
 		type: String,

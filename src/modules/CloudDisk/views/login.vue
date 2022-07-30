@@ -32,25 +32,19 @@
 				<Carousel v-model="value1" radius-dot :autoplay-speed="5000" :autoplay="true" :loop="true" arrow="never">
 					<CarouselItem>
 						<div class="banner-content">
-							<p>在线预览</p>
+							<p>在线存储</p>
 							<p>多种文件可即开即看</p>
 						</div>
 					</CarouselItem>
 					<CarouselItem>
 						<div class="banner-content">
-							<p>多端同步</p>
-							<p>一地上传，多地使用</p>
-						</div>
-					</CarouselItem>
-					<CarouselItem>
-						<div class="banner-content">
-							<p>在线解压</p>
-							<p>一键解压，速取所需</p>
+							<p>管理模板</p>
+							<p>提升您的工作效率</p>
 						</div>
 					</CarouselItem>
 				</Carousel>
 			</div>
-			<clientDownload></clientDownload>
+			<!-- <clientDownload></clientDownload> -->
 			<p class="copyright">
 				{{ $copyRight }}
 			</p>
@@ -108,8 +102,7 @@ export default {
 	display: flex;
 	align-items: center;
 	justify-content: flex-end;
-	background: url('../assets/img/login/bg.jpg');
-	background-size: 100% 100%;
+	background: #0e1630 url('../assets/img/login/border.png') fixed center;
 	.login-window {
 		width: 350px;
 		background: #fff;
@@ -245,13 +238,13 @@ export default {
 }
 .index-footer {
 	width: 100%;
-	height: 150px;
+	height: 60px;
 	display: flex;
 	align-items: center;
 	justify-content: space-around;
 	position: absolute;
 	bottom: 0;
-	background: #fff;
+	background: #0e1630;
 	flex-direction: column;
 	.banner-info {
 		width: 1000px;

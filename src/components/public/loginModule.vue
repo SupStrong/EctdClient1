@@ -1,7 +1,7 @@
 <template>
 	<div class="cloud-login-module">
 		<template v-if="head">
-			211212
+			
 			<p class="title">{{ tipsText[0] }}</p>
 			<p class="sec-title">{{ tipsText[1] }}</p>
 		</template>
@@ -44,18 +44,6 @@
 		</div>
 		<div class="footer-panel" :class="mode" style="display: none">
 			<div class="other-login" v-if="nowType === 'login'">
-				<template v-if="mode === 'normal'">
-					<!-- <label>其他登录</label>
-					<ul>
-						<li class="sf-icon-wechat" ripple><span>&nbsp;&nbsp;微信</span></li>
-						<div />
-						<li class="sf-icon-qq" ripple><span>&nbsp;&nbsp;QQ</span></li>
-					</ul> -->
-				</template>
-				<template v-else>
-					<!-- <button class="sf-icon-wechat"></button>
-					<button class="sf-icon-qq"></button> -->
-				</template>
 			</div>
 			<div v-else></div>
 			<div class="login-tips">
@@ -274,6 +262,7 @@ export default {
 							});
 						}
 						this.$emit('login', rs);
+						localStorage.setItem('user', JSON.stringify(rs.data));
 					} else if (type === 'register') {
 						this.$router.replace('/verify/' + rs.data.id + '/' + rs.data.name);
 						this.initVerify();

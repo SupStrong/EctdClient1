@@ -3,10 +3,8 @@
 		<div class="logo">
 			<img src="../../../assets/common/img/app/CloudDisk.png" alt="" draggable="false" />
 			<div class="info">
-				<!-- <p class="name">LC-XHS</p>
-				<p class="site">愿长夜漫漫 总有人为你留一盏灯</p> -->
-				<div class="name anniu btnInput" style="margin-bottom:10px;border:1px solid red" id="btnInput" @click="btnInput">按钮阿</div>
-				<input type="text" ref="anniuInput" id="anniuInput" style="border:1px solid red" placeholder="hhhhhh">
+				<p class="name">薯YoYo</p>
+				<!-- <p class="site">愿长夜漫漫 总有人为你留一盏灯</p> -->
 			</div>
 		</div>
 		<div class="action">
@@ -88,7 +86,7 @@ export default {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	background: #fff;
+	background: #0e1630;
 	.logo {
 		display: flex;
 		align-items: center;
@@ -102,7 +100,7 @@ export default {
 		.info {
 			zoom: 90%;
 			.name {
-				color: #636363;
+				color: #ff2345;
 				font-size: 22px;
 				font-family: 'zk-font';
 				line-height: 20px;
@@ -118,8 +116,8 @@ export default {
 		align-items: center;
 		button {
 			padding: 0 10px;
-			background: #fff;
-			color: #2f2f2f;
+			background: #0e1630;
+			color: #ff2345;
 			font-size: 14px;
 			&:hover {
 				color: $diskMainColor;
