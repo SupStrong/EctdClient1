@@ -6,6 +6,7 @@
         @mousedown="handleMouseDownOnShape"
     >
         <span v-show="isActive()" class="iconfont icon-tuichuquanping" @mousedown="handleRotate"></span>
+        <span v-show="isActive()" class="iconfont icon-tianjia" @mousedown="handleDelate"></span>
         <span v-show="element.isLock" class="iconfont icon-suo"></span>
         <div
             v-for="item in (isActive()? pointList : [])"
@@ -140,7 +141,10 @@ export default {
             document.addEventListener('mousemove', move)
             document.addEventListener('mouseup', up)
         },
-
+        handleDelate(e){
+            this.$store.commit('deleteComponent')
+            this.$store.commit('recordSnapshot')
+        },
         getPointStyle(point) {
             const { width, height } = this.defaultStyle
             const hasT = /t/.test(point)
@@ -394,7 +398,20 @@ export default {
         cursor: grabbing;
     }
 }
+.icon-tianjia{
+    position: absolute;
+    top: -34px;
+    left: 100%;
+    transform: translateX(-100%);
+    cursor: grab;
+    color: rgb(14, 22, 48);
+    font-size: 20px;
+    font-weight: 600;
 
+    &:active {
+        cursor: grabbing;
+    }
+}
 .icon-suo {
     position: absolute;
     top: 0;
