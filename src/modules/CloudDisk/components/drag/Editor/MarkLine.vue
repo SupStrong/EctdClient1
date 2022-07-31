@@ -235,7 +235,7 @@ export default {
 }
 
 .line {
-    background: #59c7f9;
+    background: rgb(14, 22, 48);
     position: absolute;
     z-index: 1000;
 }

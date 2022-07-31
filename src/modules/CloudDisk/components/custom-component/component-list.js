@@ -53,7 +53,7 @@ const list = [
         component: 'Picture',
         label: '图片',
         icon: 'tupian',
-        propValue: '111',
+        propValue: 'https://aliyun-wb-bvqq7ezi1t.oss-cn-beijing.aliyuncs.com//image/2022/6-28/logo.png',
         style: {
             width: 300,
             height: 200,

@@ -7,7 +7,6 @@ const components = [
     'Group',
     'RectShape',
 ]
-
 components.forEach(key => {
-    Vue.component(key, () => import(`@/custom-component/${key}`))
+    // Vue.component(key, () => import(`./${key}`))
 })

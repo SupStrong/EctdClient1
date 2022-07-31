@@ -238,13 +238,13 @@ export default {
                 component.style.top = e.clientY - rectInfo.y
                 component.style.left = e.clientX - rectInfo.x
                 component.id = generateID()
+								console.log(componentList,componentList[index],index,"componentcomponent")
                 this.$store.commit('addComponent', { component })
                 this.$store.commit('recordSnapshot')
             }
         },
 
         handleDragOver(e) {
-            console.log(e.dataTransfer,"e.dataTransfer")
             e.preventDefault()
             e.dataTransfer.dropEffect = 'copy'
         },

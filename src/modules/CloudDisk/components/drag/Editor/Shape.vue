@@ -386,7 +386,7 @@ export default {
     left: 50%;
     transform: translateX(-50%);
     cursor: grab;
-    color: #59c7f9;
+    color: rgb(14, 22, 48);
     font-size: 20px;
     font-weight: 600;
 

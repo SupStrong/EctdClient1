@@ -14,6 +14,21 @@ import 'swiper/dist/js/swiper.min';
 import VueDraggableResizable from 'vue-draggable-resizable';
 import 'vue-draggable-resizable/dist/VueDraggableResizable.css';
 Vue.component('vue-draggable-resizable', VueDraggableResizable);
+
+
+// 公共组件
+import Picture from './modules/CloudDisk/components/custom-component/Picture.vue';
+import VText from './modules/CloudDisk/components/custom-component/VText.vue';
+import VButton from './modules/CloudDisk/components/custom-component/VButton.vue';
+import Group from './modules/CloudDisk/components/custom-component/Group.vue';
+import RectShape from './modules/CloudDisk/components/custom-component/RectShape.vue';
+
+
+Vue.component('Picture', Picture)
+Vue.component('VText', VText)
+Vue.component('VButton', VButton)
+Vue.component('Group', Group)
+Vue.component('RectShape', RectShape)
 const projectConfig = require('./common/projectInfo.js').default; // 引入子系统运行打包配置
 let mode = routerTool(VueRouter);
 let router = tryGetModuleRoute();
