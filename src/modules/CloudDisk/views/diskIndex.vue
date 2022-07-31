@@ -145,7 +145,7 @@ import loading from '../components/loading';
 // 控制台页面
 import reportHandle from '../components/reportHandle'
 import disabledHandle from '../components/disabledHandle';
-import typefaceHandle from '../components/typefaceHandle'
+// import typefaceHandle from '../components/typefaceHandle'
 import dataHandle from '../components/dataHandle'
 let shareWin = null;
 
@@ -169,7 +169,7 @@ export default {
 		loading,
 		disabledHandle,
 		reportHandle,
-		typefaceHandle,
+		// typefaceHandle,
 		dataHandle
 	},
 

@@ -2,16 +2,16 @@
 	<div class="content">
 		<div class="left-child">
 			<div class="left-content">
-			<!-- 颜色 -->
-			<!-- <div class="tool-color">
+				<!-- 颜色 -->
+				<!-- <div class="tool-color">
 				<h3>文字颜色(一键刷新)</h3>
 				<div class="color-list" v-for="(item, index) in colorData" :key="index">
 					<div class="list G-Mt-10" :key="index" :style="{ 'background-color': 'rgb(' + item.RGB + ')' }"></div>
 					<span>{{ item.name }}</span>
 				</div>
 			</div> -->
-			<!-- 滤镜 -->
-			<!-- <div class="tool-filter">
+				<!-- 滤镜 -->
+				<!-- <div class="tool-filter">
 				<h3>可选滤镜</h3>
 				<div class="filter-list" v-for="(item,index) in filterData" :key="index">
 					<div class="list">
@@ -20,8 +20,8 @@
 					</div>
 				</div>
 			</div> -->
-			<!-- 边框 -->
-			<!-- <div class="tool-border">
+				<!-- 边框 -->
+				<!-- <div class="tool-border">
 				<h3>图片边框<button @click="handleClick('export')">保存生成</button></h3>
 
 				<div class="border-list" v-for="(item, index) in borderData" :key="index">
@@ -47,15 +47,22 @@
 					</div>
 				</div>
 			</div> -->
-			<!-- 字体 -->
-			<!-- <div class="typeface-color">
+				<!-- 字体 -->
+				<!-- <div class="typeface-color">
 				<h3>可选字体</h3>
 				<div class="typeface-list" v-for="(item, index) in fontData" :key="index">
 					<p :style="{'font-family':item.fontName}">{{item.name}}</p>
 				</div>
 			</div> -->
-			<!-- 我的素材 -->
-			<img class="fixed-img" @click="handleClick('top')" src="https://aliyun-wb-bvqq7ezi1t.oss-cn-beijing.aliyuncs.com/yoyo/top.png" alt="" />
+
+				<!-- 我的素材 -->
+				<div class="typeface-color">
+					<h3>可选素材</h3>
+					<section class="left">
+						<ComponentList />
+					</section>
+				</div>
+				<img class="fixed-img" @click="handleClick('top')" src="https://aliyun-wb-bvqq7ezi1t.oss-cn-beijing.aliyuncs.com/yoyo/top.png" alt="" />
 			</div>
 		</div>
 		<div class="center-child">
@@ -66,7 +73,7 @@
 						<el-tooltip class="item" effect="dark" content="删除模板" placement="top-start">
 							<i class="iconfont icon-shanchu G-Fsize-22 G-Mr-10" @click="handleChange('delete', index)"></i>
 						</el-tooltip>
-							<el-tooltip class="item" effect="dark" content="清空模板" placement="top-start">
+						<el-tooltip class="item" effect="dark" content="清空模板" placement="top-start">
 							<i class="iconfont icon-shanchu G-Fsize-22 G-Mr-10" @click="handleChange('empty', index)"></i>
 						</el-tooltip>
 						<el-tooltip class="item" effect="dark" content="背景色" placement="top-start">
@@ -84,7 +91,11 @@
 						</el-tooltip>
 					</div>
 				</div>
-				<div class="box"></div>
+				<div class="box">
+					<div class="content" style="width:100%;height: 100%;" @drop="handleDrop" @dragover="handleDragOver" @mousedown="handleMouseDown" @mouseup="deselectCurComponent">
+						<Editor />
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="right-child"></div>
@@ -92,26 +103,40 @@
 </template>
 
 <script>
-import $ from 'jquery';
+import $ from 'jquery'
+import { mapState } from 'vuex'
 import colorJson from '../../../assets/json/color';
 import filterJson from '../../../assets/json/filter';
 import gradientJson from '../../../assets/json/gradient';
 import publicData from '../../../assets/json/public';
 
-
 // 拖拽
+
+import ComponentList from './drag/ComponentList.vue'; // 左侧列表组件
+import componentList from './custom-component/component-list'; // 左侧列表数据
+import Editor from './drag/Editor/index';
 
 // 公共 mixins
 import importPPT from '../mixins/importPPT';
 import exportImgMixins from '../mixins/exportImg';
 import templateMixins from '../mixins/template';
+
+
+import { listenGlobalKeyDown } from '../../../../utils/shortcutKey'
+import {deepCopy} from '../../../../utils/utils';
+import generateID from '../../../../utils/generateID';
 export default {
-	mixins: [importPPT, exportImgMixins,templateMixins],
+	computed: mapState(['componentData', 'curComponent', 'isClickComponent', 'canvasStyleData', 'editor']),
+	mixins: [importPPT, exportImgMixins, templateMixins],
 	name: 'disabledHandle',
 	props: {
 		item: {
 			type: Object,
 		},
+	},
+	components: {
+		Editor,
+		ComponentList,
 	},
 	data() {
 		return {
@@ -124,6 +149,11 @@ export default {
 		};
 	},
 	mounted() {},
+	created() {
+    this.restore()
+    // 全局监听按键事件
+    listenGlobalKeyDown()
+  },
 	methods: {
 		handleClick(commend) {
 			switch (commend) {
@@ -134,7 +164,7 @@ export default {
 					this.exportImg();
 					break;
 				case 'top': // 导出
-					 $('.left-content').scrollTop(0);
+					$('.left-content').scrollTop(0);
 					break;
 			}
 		},
@@ -144,7 +174,7 @@ export default {
 					this.template.splice(index, 1);
 					break;
 				case 'empty': //清空
-				console.log('empty')
+					console.log('empty');
 					break;
 				case 'add':
 					this.template.push([{ text: 'text' }]);
@@ -172,12 +202,74 @@ export default {
 					this.handleOpenDrawer = 'imageSource';
 					break;
 			}
-		},
+		},  restore() {
+            // 用保存的数据恢复画布
+            if (localStorage.getItem('canvasData')) {
+                this.$store.commit('setComponentData', this.resetID(JSON.parse(localStorage.getItem('canvasData'))))
+            }
+
+            if (localStorage.getItem('canvasStyle')) {
+                this.$store.commit('setCanvasStyle', JSON.parse(localStorage.getItem('canvasStyle')))
+            }
+        },
+
+        resetID(data) {
+            data.forEach((item) => {
+                item.id = generateID()
+                if (item.component === 'Group') {
+                    this.resetID(item.propValue)
+                }
+            })
+
+            return data
+        },
+
+        handleDrop(e) {
+            e.preventDefault()
+            e.stopPropagation()
+            const index = e.dataTransfer.getData('index')
+            const rectInfo = $('.editor').get(0).getBoundingClientRect()
+            if (index) {
+                const component = deepCopy(componentList[index])
+                component.style.top = e.clientY - rectInfo.y
+                component.style.left = e.clientX - rectInfo.x
+                component.id = generateID()
+                this.$store.commit('addComponent', { component })
+                this.$store.commit('recordSnapshot')
+            }
+        },
+
+        handleDragOver(e) {
+            console.log(e.dataTransfer,"e.dataTransfer")
+            e.preventDefault()
+            e.dataTransfer.dropEffect = 'copy'
+        },
+
+        handleMouseDown(e) {
+            e.stopPropagation()
+            this.$store.commit('setClickComponentStatus', false)
+            this.$store.commit('setInEditorStatus', true)
+        },
+
+        deselectCurComponent(e) {
+            if (!this.isClickComponent) {
+                this.$store.commit('setCurComponent', { component: null, index: null })
+            }
+
+            // 0 左击 1 滚轮 2 右击
+            if (e.button !== 2) {
+                this.$store.commit('hideContextMenu')
+            }
+        },
 	},
 };
 </script>
 
 <style lang="scss" scoped>
+.editor{
+	width: 100%;
+	height: 100%;
+}
 .content {
 	display: flex;
 	justify-content: space-between;
@@ -295,13 +387,13 @@ export default {
 	.fixed-img {
 		position: absolute;
 		right: 10px;
-		bottom:20px;
+		bottom: 20px;
 		width: 45px;
 		height: 45px;
 		cursor: pointer;
 	}
 }
-.left-content{
+.left-content {
 	height: calc(100vh - 56px);
 	overflow-y: scroll;
 }

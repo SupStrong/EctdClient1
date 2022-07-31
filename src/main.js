@@ -4,7 +4,7 @@ import Vuex from 'vuex';
 import VueRouter from 'vue-router';
 import routerTool from './common/routerTool';
 import commonRouter from './common/router';
-import commonStore from './common/store';
+import commonStore from '../src/modules/CloudDisk/store/index';
 import './common/svg';
 import Element from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
@@ -40,8 +40,9 @@ function tryGetModuleStore() {
 		store.mutations = Object.assign(store.mutations || {}, commonStore.mutations);
 		store.getters = Object.assign(store.getters || {}, commonStore.getters);
 		store.modules = Object.assign(store.modules || {}, commonStore.modules);
-		return new Vuex.Store(store);
-	} catch (e) {
+		
+		return new Vuex.Store(commonStore);
+	} catch (e) {	
 		return new Vuex.Store(commonStore);
 	}
 }
@@ -53,10 +54,10 @@ function tryGetModuleMain() {
 tryGetModuleMain();
 require('./common/units'); //引入通用unit
 Vue.use(Element);
-Vue.prototype.$store = store;
+Vue.prototype.$store = commonStore;
 Vue.config.productionTip = false;
 new Vue({
 	router,
-	store,
+	store:commonStore,
 	render: (h) => h(App),
 }).$mount('#app');

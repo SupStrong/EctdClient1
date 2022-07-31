@@ -235,7 +235,7 @@ export default {
 			this.$api.user.info(false, (rs) => {
 				this.$nextTick(() => {
 					if (this.$store) {
-						this.$store.commit('updateUserInfo', rs.data);
+						// this.$store.commit('updateUserInfo', rs.data);
 					}
 					this.userInfo = rs.data;
 					this.userInfoConfig = JSON.handle(rs.data);

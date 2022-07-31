@@ -5,7 +5,7 @@
         @click="selectCurComponent"
         @mousedown="handleMouseDownOnShape"
     >
-        <span v-show="isActive()" class="iconfont icon-xiangyouxuanzhuan" @mousedown="handleRotate"></span>
+        <span v-show="isActive()" class="iconfont icon-tuichuquanping" @mousedown="handleRotate"></span>
         <span v-show="element.isLock" class="iconfont icon-suo"></span>
         <div
             v-for="item in (isActive()? pointList : [])"
@@ -20,11 +20,11 @@
 </template>
 
 <script>
-import eventBus from '@/utils/eventBus'
-import runAnimation from '@/utils/runAnimation'
+import eventBus from '../../../../../../utils/eventBus'
+import runAnimation from '../../../../../../utils/runAnimation'
 import { mapState } from 'vuex'
-import calculateComponentPositonAndSize from '@/utils/calculateComponentPositonAndSize'
-import { mod360 } from '@/utils/translate'
+import calculateComponentPositonAndSize from '../../../../../../utils/calculateComponentPositonAndSize'
+import {mod360} from '../../../../../../utils/translate';
 
 export default {
     props: {
@@ -367,21 +367,20 @@ export default {
 }
 
 .active {
-    outline: 1px solid #70c0ff;
+    outline: 1px solid rgb(14, 22, 48);
     user-select: none;
 }
 
 .shape-point {
     position: absolute;
     background: #fff;
-    border: 1px solid #59c7f9;
+    border: 1px solid rgb(14, 22, 48);
     width: 8px;
     height: 8px;
     border-radius: 50%;
     z-index: 1;
 }
-
-.icon-xiangyouxuanzhuan {
+.icon-tuichuquanping {
     position: absolute;
     top: -34px;
     left: 50%;

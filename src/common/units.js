@@ -270,7 +270,7 @@ Vue.getLocation = Vue.prototype.$getLocation = function (callback) {
 };
 Vue.getUserInfo = Vue.prototype.$getUserInfo = function (callback) {
 	api.user.info(null, (rs) => {
-		this.$store.commit('updateUserInfo', rs.data);
+		// this.$store.commit('updateUserInfo', rs.data);
 		callback && callback(rs.data);
 	});
 };

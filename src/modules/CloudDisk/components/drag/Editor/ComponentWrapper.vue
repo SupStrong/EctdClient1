@@ -12,9 +12,9 @@
 </template>
 
 <script>
-import { getStyle } from '@/utils/style'
-import runAnimation from '@/utils/runAnimation'
-import { mixins } from '@/utils/events'
+import { getStyle } from '../../../../../../utils/style'
+import runAnimation from '../../../../../../utils/runAnimation'
+import { mixins } from '../../../../../../utils/events'
 
 export default {
     mixins: [mixins],

@@ -51,7 +51,7 @@ export default {
 						this.$router.push('/index');
 					} else {
 						this.$api.user.info(false, (rs) => {
-							this.$store.commit('updateUserInfo', rs.data);
+							// this.$store.commit('updateUserInfo', rs.data);
 							this.login = true;
 							this.$emit('login');
 						});

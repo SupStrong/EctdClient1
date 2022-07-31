@@ -12,9 +12,9 @@
 </template>
 
 <script>
-import eventBus from '@/utils/eventBus'
+import eventBus from '../../../../../../utils/eventBus'
 import { mapState } from 'vuex'
-import { getComponentRotatedStyle } from '@/utils/style'
+import { getComponentRotatedStyle } from '../../../../../../utils/style'
 
 export default {
     data() {

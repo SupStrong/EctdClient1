@@ -3,16 +3,11 @@
         id="editor"
         class="editor"
         :class="{ edit: isEdit }"
-        :style="{
-            width: changeStyleWithScale(canvasStyleData.width) + 'px',
-            height: changeStyleWithScale(canvasStyleData.height) + 'px',
-        }"
         @contextmenu="handleContextMenu"
         @mousedown="handleMouseDown"
     >
         <!-- 网格线 -->
         <Grid />
-
         <!--页面组件列表展示-->
         <Shape
             v-for="(item, index) in componentData"
@@ -26,7 +21,7 @@
         >
             <component
                 :is="item.component"
-                v-if="item.component != 'v-text'"
+                v-if="item.component !== 'v-text'"
                 :id="'component' + item.id"
                 class="component"
                 :style="getComponentStyle(item.style)"
@@ -48,28 +43,27 @@
         <!-- 右击菜单 -->
         <ContextMenu />
         <!-- 标线 -->
-        <!-- <MarkLine /> -->
+        <MarkLine />
         <!-- 选中区域 -->
-        <!-- <Area
+        <Area
             v-show="isShowArea"
             :start="start"
             :width="width"
             :height="height"
-        /> -->
+        />
     </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import Shape from './Shape'
-import { getStyle, getComponentRotatedStyle } from '@/utils/style'
-import { $ } from '@/utils/utils'
 import ContextMenu from './ContextMenu'
 import MarkLine from './MarkLine'
 import Area from './Area'
-import eventBus from '@/utils/eventBus'
 import Grid from './Grid'
-import { changeStyleWithScale } from '@/utils/translate'
+import { getStyle, getComponentRotatedStyle } from '../../../../../../utils/style'
+import eventBus from '../../../../../../utils/eventBus'
+import {changeStyleWithScale} from '../../../../../../utils/translate';
 
 export default {
     components: { Shape, ContextMenu, MarkLine, Area, Grid },
@@ -100,8 +94,8 @@ export default {
     ]),
     mounted() {
         // 获取编辑器元素
+        console.log(this.$store,"this.$storethis.$store")
         this.$store.commit('getEditor')
-
         eventBus.$on('hideArea', () => {
             this.hideArea()
         })
@@ -111,7 +105,7 @@ export default {
 
         handleMouseDown(e) {
             // 如果没有选中组件 在画布上点击时需要调用 e.preventDefault() 防止触发 drop 事件
-            if (!this.curComponent || (this.curComponent.component != 'v-text' && this.curComponent.component != 'rect-shape')) {
+            if (!this.curComponent || (this.curComponent.component !== 'v-text' && this.curComponent.component !== 'rect-shape')) {
                 e.preventDefault()
             }
 
@@ -145,7 +139,7 @@ export default {
                 document.removeEventListener('mousemove', move)
                 document.removeEventListener('mouseup', up)
 
-                if (e.clientX == startX && e.clientY == startY) {
+                if (e.clientX === startX && e.clientY === startY) {
                     this.hideArea()
                     return
                 }
@@ -187,7 +181,7 @@ export default {
             let right = -Infinity, bottom = -Infinity
             areaData.forEach(component => {
                 let style = {}
-                if (component.component == 'Group') {
+                if (component.component === 'Group') {
                     component.propValue.forEach(item => {
                         const rectInfo = $(`#component${item.id}`).getBoundingClientRect()
                         style.left = rectInfo.left - this.editorX
@@ -227,7 +221,7 @@ export default {
             })
         },
 
-        getSelectArea() {
+        getSelectArea() {   
             const result = []
             // 区域起点坐标
             const { x, y } = this.start
@@ -269,7 +263,7 @@ export default {
         getShapeStyle(style) {
             const result = {};
             ['width', 'height', 'top', 'left', 'rotate'].forEach(attr => {
-                if (attr != 'rotate') {
+                if (attr !== 'rotate') {
                     result[attr] = style[attr] + 'px'
                 } else {
                     result.transform = 'rotate(' + style[attr] + 'deg)'
