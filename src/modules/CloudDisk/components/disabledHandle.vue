@@ -1,6 +1,7 @@
 <template>
 	<div class="content">
 		<div class="left-child">
+			<div class="left-content">
 			<!-- 颜色 -->
 			<!-- <div class="tool-color">
 				<h3>文字颜色(一键刷新)</h3>
@@ -20,9 +21,9 @@
 				</div>
 			</div> -->
 			<!-- 边框 -->
-			<div class="tool-border">
+			<!-- <div class="tool-border">
 				<h3>图片边框<button @click="handleClick('export')">保存生成</button></h3>
-				
+
 				<div class="border-list" v-for="(item, index) in borderData" :key="index">
 					<div class="list">
 						<img
@@ -41,26 +42,32 @@
 				<h3>边框颜色<button data-v-0513acdc="" class="btn default" @click="handleClick('refresh')">(一键刷新)</button></h3>
 				<div class="list">
 					<div class="color-list" v-for="(item, index) in borderColorData" :key="index">
-						<div class="list G-Mt-10" :key="index" :style="{ 'background-color': 'rgb(' + item.RGB + ')','background-image':`${item.RGB}` }"></div>
+						<div class="list G-Mt-10" :key="index" :style="{ 'background-color': 'rgb(' + item.RGB + ')', 'background-image': `${item.RGB}` }"></div>
 						<span>{{ item.name }}</span>
 					</div>
 				</div>
-			</div>
-		<!-- 字体 -->
-		<!-- <div class="typeface-color">
+			</div> -->
+			<!-- 字体 -->
+			<!-- <div class="typeface-color">
 				<h3>可选字体</h3>
 				<div class="typeface-list" v-for="(item, index) in fontData" :key="index">
 					<p :style="{'font-family':item.fontName}">{{item.name}}</p>
 				</div>
 			</div> -->
-	</div>
+			<!-- 我的素材 -->
+			<img class="fixed-img" @click="handleClick('top')" src="https://aliyun-wb-bvqq7ezi1t.oss-cn-beijing.aliyuncs.com/yoyo/top.png" alt="" />
+			</div>
+		</div>
 		<div class="center-child">
 			<div class="template-main" v-for="(item, index) of template" :key="index">
 				<div class="fl-row-justy">
-					<div class="G-t-r G-bold G-color-333 G-Fsize-16">第{{index + 1}}页</div>
+					<div class="G-t-r G-bold G-color-333 G-Fsize-16">第{{ index + 1 }}页</div>
 					<div class="icon G-t-r">
 						<el-tooltip class="item" effect="dark" content="删除模板" placement="top-start">
 							<i class="iconfont icon-shanchu G-Fsize-22 G-Mr-10" @click="handleChange('delete', index)"></i>
+						</el-tooltip>
+							<el-tooltip class="item" effect="dark" content="清空模板" placement="top-start">
+							<i class="iconfont icon-shanchu G-Fsize-22 G-Mr-10" @click="handleChange('empty', index)"></i>
 						</el-tooltip>
 						<el-tooltip class="item" effect="dark" content="背景色" placement="top-start">
 							<i class="iconfont icon-beijingse G-Fsize-20 G-Mr-10" @click="handleChange('bgColor', index)"></i>
@@ -85,17 +92,21 @@
 </template>
 
 <script>
+import $ from 'jquery';
 import colorJson from '../../../assets/json/color';
 import filterJson from '../../../assets/json/filter';
 import gradientJson from '../../../assets/json/gradient';
 import publicData from '../../../assets/json/public';
 
+
+// 拖拽
+
 // 公共 mixins
 import importPPT from '../mixins/importPPT';
 import exportImgMixins from '../mixins/exportImg';
+import templateMixins from '../mixins/template';
 export default {
-	
-  mixins: [importPPT, exportImgMixins],
+	mixins: [importPPT, exportImgMixins,templateMixins],
 	name: 'disabledHandle',
 	props: {
 		item: {
@@ -106,31 +117,34 @@ export default {
 		return {
 			colorData: colorJson,
 			filterData: filterJson,
-			borderColorData:[...gradientJson,...colorJson.sort(() => Math.random() - 0.5)],
+			borderColorData: [...gradientJson, ...colorJson.sort(() => Math.random() - 0.5)],
 			borderData: publicData.borderData,
-			fontData:publicData.fontData,
-			template:[
-				{}
-			]
+			fontData: publicData.fontData,
+			template: [{}],
 		};
 	},
-	mounted(){
-	},
+	mounted() {},
 	methods: {
-		handleClick(commend){
+		handleClick(commend) {
 			switch (commend) {
 				case 'refresh': //刷
-				this.borderColorData = [...gradientJson,...colorJson.sort(() => Math.random() - 0.5)];
-				break;
+					this.borderColorData = [...gradientJson, ...colorJson.sort(() => Math.random() - 0.5)];
+					break;
 				case 'export': // 导出
-				this.exportImg()
-				break;
+					this.exportImg();
+					break;
+				case 'top': // 导出
+					 $('.left-content').scrollTop(0);
+					break;
 			}
 		},
 		handleChange(commend = 'normal', index) {
 			switch (commend) {
 				case 'delete': //删除
 					this.template.splice(index, 1);
+					break;
+				case 'empty': //清空
+				console.log('empty')
 					break;
 				case 'add':
 					this.template.push([{ text: 'text' }]);
@@ -171,12 +185,12 @@ export default {
 .left-child {
 	width: 25%;
 	height: calc(100vh - 56px);
-	overflow-y: scroll;
 	background-color: #252627;
+	position: relative;
 	h3 {
 		font-weight: 600;
 		margin: 10px 0 10px 15px;
-		.btn{
+		.btn {
 			margin-left: 10px;
 			border: 0;
 			color: white;
@@ -264,8 +278,8 @@ export default {
 			}
 		}
 	}
-	.typeface-color{
-		.typeface-list{
+	.typeface-color {
+		.typeface-list {
 			height: 45px;
 			color: white;
 			padding-left: 15px;
@@ -274,23 +288,35 @@ export default {
 			align-items: center;
 			cursor: pointer;
 		}
-		.typeface-list:hover{
-			background: rgb(50,50,50);
+		.typeface-list:hover {
+			background: rgb(50, 50, 50);
 		}
 	}
+	.fixed-img {
+		position: absolute;
+		right: 10px;
+		bottom:20px;
+		width: 45px;
+		height: 45px;
+		cursor: pointer;
+	}
 }
-.left-child::-webkit-scrollbar {
+.left-content{
+	height: calc(100vh - 56px);
+	overflow-y: scroll;
+}
+.left-content::-webkit-scrollbar {
 	/*滚动条整体样式*/
 	width: 3px; /*高宽分别对应横竖滚动条的尺寸*/
 	height: 3px;
 }
-.left-child::-webkit-scrollbar-thumb {
+.left-content::-webkit-scrollbar-thumb {
 	/*滚动条里面小方块*/
 	border-radius: 6px;
 	-webkit-box-shadow: inset 0 0 5px #535353;
 	background: #535353;
 }
-.left-child::-webkit-scrollbar-track {
+.left-content::-webkit-scrollbar-track {
 	/*滚动条里面轨道*/
 	-webkit-box-shadow: inset 0 0 5px white;
 	border-radius: 6px;

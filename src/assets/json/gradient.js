@@ -1,5 +1,6 @@
 const data = [
   {
+    
     name:'蓝冷色',
     RGB:'linear-gradient(to right, #c0c0aa , #1cefff)',
     type:'gradient'
