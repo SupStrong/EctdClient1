@@ -144,21 +144,7 @@
 				</div>
 			</div>
 		</div>
-		<ul class="sort-container" v-if="fileStateIcon !== 'sf-icon-th-large' && type !== 'trans'">
-			<li class="select-all">
-				<!-- <Checkbox v-model="data.selectAll" @on-change="selectChange"></Checkbox> -->
-			</li>
-			<li
-				v-for="(item, index) in sortData"
-				:key="index"
-				:class="'item sf-icon-sort-' + item.value + '-' + item.type"
-				@click="diskSort(item)"
-				ripple
-				:style="{ width: item.width || '' }"
-			>
-				{{ item.name }}
-			</li>
-		</ul>
+
 		<div class="trash-tip" v-if="data.categoryType === 'trash'">
 			<p><i class="sf-icon-info-circle" /> 回收站仍然占用网盘空间，文件保存10天后将被自动清除</p>
 		</div>

@@ -103,6 +103,7 @@ export default {
         box-sizing: border-box;
         margin: 5px 0;
         padding: 6px 0;
+        width: 160px;
 
         li {
             font-size: 14px;

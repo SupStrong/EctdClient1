@@ -485,7 +485,7 @@ export default {
 
 	computed: {
 		diskFileShowType: function () {
-			return this.$store.state.fileStateIcon === 'sf-icon-th-large' ? 'block-file' : 'list-file';
+			return this.$store.state.fileStateIcon === 'sf-icon-th-large' ? 'block-file' : 'block-file';
 		},
 		isTF() {
 			return this.handleOpenDrawer === 'fontColor' ? this.curData.fColor : this.templateListBgc[this.templateIdx].bgColor;

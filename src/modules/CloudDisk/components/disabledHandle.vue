@@ -70,6 +70,17 @@
 				<div class="fl-row-justy">
 					<div class="G-t-r G-bold G-color-333 G-Fsize-16">第{{ index + 1 }}页</div>
 					<div class="icon G-t-r">
+						<Poptip trigger="hover" placement="bottom-start" width="85" padding="0" @on-popper-show="hoverUpload = true" @on-popper-hide="hoverUpload = false">
+							<i class="iconfont icon-shanchu G-Fsize-22 G-Mr-10"></i>
+							<ul class="upload-type" slot="content">
+								<li>四宫格</li>
+								<li>九宫格</li>
+								<li>左交叉</li>
+								<li>右交叉</li>
+								<li>上宫格</li>
+								<li>下宫格</li>
+							</ul>
+						</Poptip>
 						<el-tooltip class="item" effect="dark" content="删除模板" placement="top-start">
 							<i class="iconfont icon-shanchu G-Fsize-22 G-Mr-10" @click="handleChange('delete', index)"></i>
 						</el-tooltip>
@@ -92,21 +103,28 @@
 					</div>
 				</div>
 				<div class="box">
-					<div class="content" style="width:100%;height: 100%;" @drop="handleDrop" @dragover="handleDragOver" @mousedown="handleMouseDown" @mouseup="deselectCurComponent">
-						<Editor  style="width:100%;height: 100%;" />
+					<div
+						class="content"
+						style="width: 100%; height: 100%"
+						@drop="handleDrop"
+						@dragover="handleDragOver"
+						@mousedown="handleMouseDown"
+						@mouseup="deselectCurComponent"
+					>
+						<Editor style="width: 100%; height: 100%" />
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="right-child">
-			 <AttrList v-if="curComponent" />
+			<AttrList v-if="curComponent" />
 		</div>
 	</div>
 </template>
 
 <script>
-import $ from 'jquery'
-import { mapState } from 'vuex'
+import $ from 'jquery';
+import { mapState } from 'vuex';
 import colorJson from '../../../assets/json/color';
 import filterJson from '../../../assets/json/filter';
 import gradientJson from '../../../assets/json/gradient';
@@ -117,16 +135,15 @@ import publicData from '../../../assets/json/public';
 import ComponentList from './drag/ComponentList.vue'; // 左侧列表组件
 import componentList from './custom-component/component-list'; // 左侧列表数据
 import Editor from './drag/Editor/index';
-import AttrList from './drag/AttrList' // 右侧属性列表
+import AttrList from './drag/AttrList'; // 右侧属性列表
 
 // 公共 mixins
 import importPPT from '../mixins/importPPT';
 import exportImgMixins from '../mixins/exportImg';
 import templateMixins from '../mixins/template';
 
-
-import { listenGlobalKeyDown } from '../../../../utils/shortcutKey'
-import {deepCopy} from '../../../../utils/utils';
+import { listenGlobalKeyDown } from '../../../../utils/shortcutKey';
+import { deepCopy } from '../../../../utils/utils';
 import generateID from '../../../../utils/generateID';
 export default {
 	computed: mapState(['componentData', 'curComponent', 'isClickComponent', 'canvasStyleData', 'editor']),
@@ -140,7 +157,7 @@ export default {
 	components: {
 		Editor,
 		ComponentList,
-		AttrList
+		AttrList,
 	},
 	data() {
 		return {
@@ -154,10 +171,10 @@ export default {
 	},
 	mounted() {},
 	created() {
-    this.restore()
-    // 全局监听按键事件
-    listenGlobalKeyDown()
-  },
+		this.restore();
+		// 全局监听按键事件
+		listenGlobalKeyDown();
+	},
 	methods: {
 		handleClick(commend) {
 			switch (commend) {
@@ -206,71 +223,84 @@ export default {
 					this.handleOpenDrawer = 'imageSource';
 					break;
 			}
-		},  restore() {
-            // 用保存的数据恢复画布
-            if (localStorage.getItem('canvasData')) {
-                this.$store.commit('setComponentData', this.resetID(JSON.parse(localStorage.getItem('canvasData'))))
-            }
+		},
+		restore() {
+			// 用保存的数据恢复画布
+			if (localStorage.getItem('canvasData')) {
+				this.$store.commit('setComponentData', this.resetID(JSON.parse(localStorage.getItem('canvasData'))));
+			}
 
-            if (localStorage.getItem('canvasStyle')) {
-                this.$store.commit('setCanvasStyle', JSON.parse(localStorage.getItem('canvasStyle')))
-            }
-        },
+			if (localStorage.getItem('canvasStyle')) {
+				this.$store.commit('setCanvasStyle', JSON.parse(localStorage.getItem('canvasStyle')));
+			}
+		},
 
-        resetID(data) {
-            data.forEach((item) => {
-                item.id = generateID()
-                if (item.component === 'Group') {
-                    this.resetID(item.propValue)
-                }
-            })
+		resetID(data) {
+			data.forEach((item) => {
+				item.id = generateID();
+				if (item.component === 'Group') {
+					this.resetID(item.propValue);
+				}
+			});
 
-            return data
-        },
+			return data;
+		},
 
-        handleDrop(e) {
-            e.preventDefault()
-            e.stopPropagation()
-            const index = e.dataTransfer.getData('index')
-            const rectInfo = $('.editor').get(0).getBoundingClientRect()
-            if (index) {
-                const component = deepCopy(componentList[index])
-                component.style.top = e.clientY - rectInfo.y
-                component.style.left = e.clientX - rectInfo.x
-                component.id = generateID()
-								console.log(componentList,componentList[index],index,"componentcomponent")
-                this.$store.commit('addComponent', { component })
-                this.$store.commit('recordSnapshot')
-            }
-        },
+		handleDrop(e) {
+			e.preventDefault();
+			e.stopPropagation();
+			const index = e.dataTransfer.getData('index');
+			const rectInfo = $('.editor').get(0).getBoundingClientRect();
+			if (index) {
+				const component = deepCopy(componentList[index]);
+				component.style.top = e.clientY - rectInfo.y;
+				component.style.left = e.clientX - rectInfo.x;
+				component.id = generateID();
+				console.log(componentList, componentList[index], index, 'componentcomponent');
+				this.$store.commit('addComponent', { component });
+				this.$store.commit('recordSnapshot');
+			}
+		},
 
-        handleDragOver(e) {
-            e.preventDefault()
-            e.dataTransfer.dropEffect = 'copy'
-        },
+		handleDragOver(e) {
+			e.preventDefault();
+			e.dataTransfer.dropEffect = 'copy';
+		},
 
-        handleMouseDown(e) {
-            e.stopPropagation()
-            this.$store.commit('setClickComponentStatus', false)
-            this.$store.commit('setInEditorStatus', true)
-        },
+		handleMouseDown(e) {
+			e.stopPropagation();
+			this.$store.commit('setClickComponentStatus', false);
+			this.$store.commit('setInEditorStatus', true);
+		},
 
-        deselectCurComponent(e) {
-            if (!this.isClickComponent) {
-                this.$store.commit('setCurComponent', { component: null, index: null })
-            }
+		deselectCurComponent(e) {
+			if (!this.isClickComponent) {
+				this.$store.commit('setCurComponent', { component: null, index: null });
+			}
 
-            // 0 左击 1 滚轮 2 右击
-            if (e.button !== 2) {
-                this.$store.commit('hideContextMenu')
-            }
-        },
+			// 0 左击 1 滚轮 2 右击
+			if (e.button !== 2) {
+				this.$store.commit('hideContextMenu');
+			}
+		},
 	},
 };
 </script>
 
 <style lang="scss" scoped>
-.editor{
+.upload-type {
+	li {
+		width: 100%;
+		height: 30px;
+		line-height: 30px;
+		font-size: 12px;
+		padding: 0 10px;
+		cursor: pointer;
+		text-align: left;
+		float: left;
+	}
+}
+.editor {
 	width: 100%;
 	height: 100%;
 }
