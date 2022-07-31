@@ -53,7 +53,7 @@ const list = [
         component: 'Picture',
         label: '图片',
         icon: 'tupian',
-        propValue: '22',
+        propValue: '111',
         style: {
             width: 300,
             height: 200,

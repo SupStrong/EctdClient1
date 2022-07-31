@@ -93,12 +93,14 @@
 				</div>
 				<div class="box">
 					<div class="content" style="width:100%;height: 100%;" @drop="handleDrop" @dragover="handleDragOver" @mousedown="handleMouseDown" @mouseup="deselectCurComponent">
-						<Editor />
+						<Editor  style="width:100%;height: 100%;" />
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="right-child"></div>
+		<div class="right-child">
+			 <AttrList v-if="curComponent" />
+		</div>
 	</div>
 </template>
 
@@ -115,6 +117,7 @@ import publicData from '../../../assets/json/public';
 import ComponentList from './drag/ComponentList.vue'; // 左侧列表组件
 import componentList from './custom-component/component-list'; // 左侧列表数据
 import Editor from './drag/Editor/index';
+import AttrList from './drag/AttrList' // 右侧属性列表
 
 // 公共 mixins
 import importPPT from '../mixins/importPPT';
@@ -137,6 +140,7 @@ export default {
 	components: {
 		Editor,
 		ComponentList,
+		AttrList
 	},
 	data() {
 		return {
@@ -463,7 +467,7 @@ export default {
 .right-child {
 	width: 25%;
 	height: calc(100vh - 56px);
-	background-color: #252627;
+	background-color: white;
 }
 </style>
 <style lang="scss">

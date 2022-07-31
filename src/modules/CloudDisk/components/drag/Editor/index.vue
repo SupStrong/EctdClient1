@@ -315,6 +315,8 @@ export default {
         outline: none;
         width: 100%;
         height: 100%;
+        display: block;
+        border:1px solid rgb(14, 22, 48);
     }
 }
 </style>

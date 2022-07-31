@@ -1,10 +1,10 @@
 import { sin, cos } from './translate';
 
 export const styleData = [
-    { key: 'left', label: 'x 坐标' },
-    { key: 'top', label: 'y 坐标' },
-    { key: 'width', label: '宽' },
-    { key: 'height', label: '高' },
+    // { key: 'left', label: 'x 坐标' },
+    // { key: 'top', label: 'y 坐标' },
+    // { key: 'width', label: '宽' },
+    // { key: 'height', label: '高' },
     { key: 'color', label: '颜色' },
     { key: 'backgroundColor', label: '背景色' },
     { key: 'borderWidth', label: '边框宽度' },
