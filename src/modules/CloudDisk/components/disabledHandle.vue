@@ -474,14 +474,14 @@ export default {
 		width: 514.188px;
 		margin-top: 25px;
 	}
-	.box {
+// 510 727.38
+.box {
 		background-color: #fff;
 		width: 100%;
 		height: 727.38px;
 		position: relative;
 		cursor: pointer;
 		box-sizing: border-box;
-		border: 2px solid white;
 		&.active {
 			border: 2px dashed #88ffe3 !important;
 		}

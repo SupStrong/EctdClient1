@@ -187,7 +187,7 @@ Vue.disableDrag = Vue.prototype.$disableDrag = function () {
 		false
 	);
 };
-Vue.copyRight = Vue.prototype.$copyRight = `©2014-2021 CloudSeries ${projectInfo.logoText} All rights reserved ZJINH`; //版权信息
+Vue.copyRight = Vue.prototype.$copyRight = `YoYo`; //版权信息
 Vue.gitHub = Vue.prototype.$gitHub = 'https://github.com/zjinh/';
 Vue.projectInfo = Vue.prototype.$projectInfo = projectInfo;
 Vue.projectEnv = Vue.prototype.$projectEnv = projectInfo.env || process.platform;

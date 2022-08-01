@@ -22,15 +22,20 @@
             </pattern>
             <pattern
                 id="grid"
-                width="255"
-                height="361"
+                width="102.84 "
+                height="145.476"
                 patternUnits="userSpaceOnUse"
             >
-                <rect width="255" height="361" fill="url(#smallGrid)"></rect>
+            <!-- 514.20   727.38 -->
+            <!-- 257.1  363.9 -->
+            <!-- 171.4  242.46 -->
+            <!-- 128.55  181.845 -->
+            <!-- 102.84  145.476 -->
+                <rect width="102.84 " height="145.476" fill="url(#smallGrid)"></rect>
                 <path 
-                    d="M 255 0 L 0 0 0 361" 
+                    d="M 102.84  0 L 0 0 0 145.476" 
                     fill="none" 
-                    stroke="rgba(186, 186, 186, 0.5)" 
+                    stroke="rgba(186, 186, 186, 1)" 
                     stroke-width="1"
                 >
                 </path>

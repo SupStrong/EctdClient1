@@ -19,34 +19,19 @@ const list = [
         propValue: '双击编辑文字',
         icon: 'wenben',
         style: {
-            width: 200,
+            width: 150,
             height: 22,
-            fontSize: 14,
-            fontWeight: 500,
-            lineHeight: '',
-            letterSpacing: 0,
-            textAlign: '',
-            color: '',
-        },
-    },
-    {
-        component: 'v-button',
-        label: '按钮',
-        propValue: '按钮',
-        icon: 'button',
-        style: {
-            width: 100,
-            height: 34,
-            borderWidth: 1,
-            borderColor: '',
-            borderRadius: '',
-            fontSize: 14,
-            fontWeight: 500,
-            lineHeight: '',
-            letterSpacing: 0,
-            textAlign: '',
-            color: '',
-            backgroundColor: '',
+            yoTextWeight:"粗细 100 - 400",
+            yoTextColor:"文字颜色",
+            yoTextBgcColor:"文本背景颜色",
+            yoTextBgImg:"文字背景图",
+            yoTextFillet:"文本圆角",
+            yoTextPadding:"文本间距",
+            yoTextShadow:"文字阴影",
+            yoTextSize:"字体大小",
+            yoTextStyle:"字体风格",
+            yoTextFamily:"字体类型",
+            yoTextWriting:"排列"
         },
     },
     {
@@ -91,3 +76,6 @@ for (let i = 0, len = list.length; i < len; i++) {
 }
 
 export default list
+// 拖拽 字体,我的样式,图片,矩形,模板
+
+// 图片-剪裁,圆角,滤镜,样式,放大.

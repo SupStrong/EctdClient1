@@ -1,10 +1,6 @@
-<!-- eslint-disable vue/no-v-html -->
 <template>
     <div
-        v-if="editMode == 'edit'"
         class="v-text"
-        @keydown="handleKeydown"
-        @keyup="handleKeyup"
     >
         <!-- tabindex >= 0 使得双击时聚焦该元素 -->
         <div
@@ -12,7 +8,6 @@
             :contenteditable="canEdit"
             :class="{ canEdit }"
             :tabindex="element.id"
-            :style="{ verticalAlign: element.style.verticalAlign }"
             @dblclick="setEdit"
             @paste="clearStyle"
             @mousedown="handleMousedown"
@@ -21,14 +16,12 @@
             v-html="element.propValue"
         ></div>
     </div>
-    <div v-else class="v-text preview">
-        <div :style="{ verticalAlign: element.style.verticalAlign }" v-html="element.propValue"></div>
-    </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import { keycodes } from '@/utils/shortcutKey.js'
+import { keycodes } from '../../../../../utils/shortcutKey'
+
 
 export default {
     props: {
@@ -151,18 +144,3 @@ export default {
     user-select: none;
 }
 </style>
-<script>
-// 图片-文字
-// 字体，字号，颜色，倾斜度，透明度，排列方式
-
-// 拖拽
-// 排序
-
-// 复制-粘贴-删除
-
-// 文件素材管理
-// 新增，删除，重命名，分享，上传文件夹，上传文件
-
-// 权限管理
-// 登录-注册-修改密码-个人信息-编辑
-</script>

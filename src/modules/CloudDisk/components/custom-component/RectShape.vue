@@ -1,6 +1,6 @@
 <template>
     <div class="rect-shape">
-        <v-text :prop-value="element.propValue" :element="element" />
+        <v-text :prop-value="element.propValue" :elementObj="element" />
     </div>
 </template>
 
