@@ -24,7 +24,7 @@ export default {
 		},
 	},
 	data() {
-		return {}
+		return {};
 	},
 };
 </script>
@@ -51,19 +51,22 @@ export default {
 			background: rgba(64, 87, 109, 0.07);
 			border-radius: 8px;
 			padding-top: 16px;
+			padding-bottom: 16px;
 			box-sizing: border-box;
 			img {
 				width: 160px;
 				margin: 0 auto;
-				border-radius: 8px 8px 0 0;
+				border-radius: 8px;
 			}
 		}
 		.info {
-			.name{
+			text-align: center;
+			.name {
 				font-weight: bold;
 				margin-top: 5px;
 			}
-			.size{}
+			.size {
+			}
 		}
 	}
 }
