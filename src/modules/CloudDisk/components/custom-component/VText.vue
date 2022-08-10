@@ -12,6 +12,11 @@
             @paste="clearStyle"
             @mousedown="handleMousedown"
             @blur="handleBlur"
+            :style="{
+                'fontFamily':element.style.yoTextFamily,
+                'fontWeight':element.style.yoTextWeight,
+                'textDecoration':element.style.yoDecoration,
+            }"
             @input="handleInput"
             v-html="element.propValue"
         ></div>

@@ -18,7 +18,6 @@ export default {
 	},
 	methods: {
 		handleDragStart(e) {
-            console.log(e,"Rerere")
 			e.dataTransfer.setData('index', e.target.dataset.index);
 		},
 	},
@@ -29,12 +28,10 @@ export default {
 .component-list {
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: space-between;
 	padding: 10px;
 	color: white;
 
 	.list {
-		width: 45%;
 		border: 1px solid #ddd;
 		cursor: grab;
 		margin-bottom: 10px;

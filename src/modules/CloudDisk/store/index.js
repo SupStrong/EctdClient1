@@ -70,6 +70,7 @@ const data = {
         },
 
         setShapeStyle({ curComponent }, { top, left, width, height, rotate }) {
+
             if (top) curComponent.style.top = top
             if (left) curComponent.style.left = left
             if (width) curComponent.style.width = width

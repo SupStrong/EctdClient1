@@ -1,7 +1,7 @@
 <template>
 	<div id="editor" class="editor" :class="{ edit: isEdit }" @contextmenu="handleContextMenu" @mousedown="handleMouseDown">
 		<!-- 网格线 -->
-		<Grid />
+		<Grid :rectData="rectData" />
 		<!--页面组件列表展示-->
 		<Shape
 			v-for="(item, index) in componentData"
@@ -61,6 +61,10 @@ export default {
 			type: Boolean,
 			default: true,
 		},
+		rectData:{
+			type: Object,
+			default: () => {},
+		}
 	},
 	data() {
 		return {
@@ -303,7 +307,7 @@ export default {
 		width: 100%;
 		height: 100%;
 		display: block;
-		border: 1px solid rgb(14, 22, 48);
+		border: 1px solid rgb(245, 245, 245);
 	}
 }
 </style>

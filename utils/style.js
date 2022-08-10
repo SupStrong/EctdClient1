@@ -1,23 +1,28 @@
 import { sin, cos } from './translate';
 
 export const styleData = [
-    // { key: 'left', label: 'x 坐标' },
-    // { key: 'top', label: 'y 坐标' },
-    // { key: 'width', label: '宽' },
-    // { key: 'height', label: '高' },
-    { key: 'color', label: '颜色' },
-    { key: 'backgroundColor', label: '背景色' },
-    { key: 'borderWidth', label: '边框宽度' },
-    { key: 'borderStyle', label: '边框风格' },
-    { key: 'borderColor', label: '边框颜色' },
-    { key: 'borderRadius', label: '边框半径' },
-    { key: 'fontSize', label: '字体大小' },
-    { key: 'fontWeight', label: '字体粗细' },
-    { key: 'lineHeight', label: '行高' },
-    { key: 'letterSpacing', label: '字间距' },
-    { key: 'textAlign', label: '左右对齐' },
-    { key: 'verticalAlign', label: '上下对齐' },
-    { key: 'opacity', label: '透明度' },
+    { key: 'yoTextWeight', label: '字体粗细' },
+    { key: 'yoDecoration', label: '横线' },
+    { key: 'yoTextColor', label: '文字颜色' },
+    { key: 'yoTextBgcColor', label: '文本背景颜色' },
+    { key: 'yoTextBgImg', label: '文字背景图' },
+    { key: 'yoTextFillet', label: '文本圆角' },
+    { key: 'yoTextPadding', label: '文本间距' },
+    { key: 'yoTextShadow', label: '文本阴影' },
+    { key: 'yoTextSize', label: '文字大小' },
+    { key: 'yoTextStyle', label: '字体风格' },
+    { key: 'yoTextFamily', label: '字体类型' },
+    { key: 'yoTextWriting', label: '排列' },
+
+    { key: 'yoImgStyle', label: '图片样式' },
+    { key: 'yoImgFilter', label: '滤镜' },
+  
+    { key: 'yoBoxBgcolor', label: '背景色' },
+    { key: 'yoBoxFillet', label: '圆角' },
+    { key: 'yoBoxBorderColor', label: '背景颜色' },
+    { key: 'yoBoxBorderStyle', label: '边框颜色' },
+    { key: 'yoBoxBorderWidth', label: '边框宽度' },
+
 ]
 
 export function getStyle(style, filter = []) {

@@ -13,6 +13,7 @@ import 'swiper/dist/js/swiper.min';
 
 import VueDraggableResizable from 'vue-draggable-resizable';
 import 'vue-draggable-resizable/dist/VueDraggableResizable.css';
+import './assets/common/css/font.scss';
 Vue.component('vue-draggable-resizable', VueDraggableResizable);
 
 

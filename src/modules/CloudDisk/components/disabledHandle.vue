@@ -1,17 +1,19 @@
 <template>
 	<div class="content">
 		<div class="left-child">
+			
+				<ComponentList />
 			<div class="left-content">
 				<!-- 颜色 -->
-				<!-- <div class="tool-color">
+				<div class="tool-color" v-if="isComponent == 'yoTextColor'">
 				<h3>文字颜色(一键刷新)</h3>
 				<div class="color-list" v-for="(item, index) in colorData" :key="index">
 					<div class="list G-Mt-10" :key="index" :style="{ 'background-color': 'rgb(' + item.RGB + ')' }"></div>
 					<span>{{ item.name }}</span>
 				</div>
-			</div> -->
+			</div>
 				<!-- 滤镜 -->
-				<!-- <div class="tool-filter">
+				<div class="tool-filter" v-else-if="isComponent == 'yoImgFilter'">
 				<h3>可选滤镜</h3>
 				<div class="filter-list" v-for="(item,index) in filterData" :key="index">
 					<div class="list">
@@ -19,11 +21,10 @@
 						<span>{{item.name || '变暗'}}</span>
 					</div>
 				</div>
-			</div> -->
+			</div>
 				<!-- 边框 -->
-				<!-- <div class="tool-border">
+				<div class="tool-border"  v-else-if="isComponent == 'yoBoxBorderStyle'">
 				<h3>图片边框<button @click="handleClick('export')">保存生成</button></h3>
-
 				<div class="border-list" v-for="(item, index) in borderData" :key="index">
 					<div class="list">
 						<img
@@ -46,39 +47,26 @@
 						<span>{{ item.name }}</span>
 					</div>
 				</div>
-			</div> -->
+			</div>
 				<!-- 字体 -->
-				<!-- <div class="typeface-color">
+				<div class="typeface-color"  v-else-if="isComponent == 'yoTextFamily'">
 				<h3>可选字体</h3>
 				<div class="typeface-list" v-for="(item, index) in fontData" :key="index">
 					<p :style="{'font-family':item.fontName}">{{item.name}}</p>
 				</div>
-			</div> -->
-
-				<!-- 我的素材 -->
-				<div class="typeface-color">
-					<h3>可选素材</h3>
-					<section class="left">
-						<ComponentList />
-					</section>
-				</div>
+			</div>
 				<img class="fixed-img" @click="handleClick('top')" src="https://aliyun-wb-bvqq7ezi1t.oss-cn-beijing.aliyuncs.com/yoyo/top.png" alt="" />
 			</div>
 		</div>
 		<div class="center-child">
 			<div class="template-main" v-for="(item, index) of template" :key="index">
 				<div class="fl-row-justy">
-					<div class="G-t-r G-bold G-color-333 G-Fsize-16">第{{ index + 1 }}页</div>
+					<div class="G-t-r G-bold G-color-333 G-Fsize-16">第{{chineseJsFun(index + 1)}}页</div>
 					<div class="icon G-t-r">
 						<Poptip trigger="hover" placement="bottom-start" width="85" padding="0" @on-popper-show="hoverUpload = true" @on-popper-hide="hoverUpload = false">
 							<i class="iconfont icon-shanchu G-Fsize-22 G-Mr-10"></i>
 							<ul class="upload-type" slot="content">
-								<li>四宫格</li>
-								<li>九宫格</li>
-								<li>左交叉</li>
-								<li>右交叉</li>
-								<li>上宫格</li>
-								<li>下宫格</li>
+								<li v-for="(item,index) of rectList" :key="index" @click="handleRect(item,index)">{{item.name}}</li>
 							</ul>
 						</Poptip>
 						<el-tooltip class="item" effect="dark" content="删除模板" placement="top-start">
@@ -111,7 +99,7 @@
 						@mousedown="handleMouseDown"
 						@mouseup="deselectCurComponent"
 					>
-						<Editor style="width: 100%; height: 100%" />
+						<Editor style="width: 100%; height: 100%" :rectData='rectData' />
 					</div>
 				</div>
 			</div>
@@ -130,6 +118,7 @@ import filterJson from '../../../assets/json/filter';
 import gradientJson from '../../../assets/json/gradient';
 import publicData from '../../../assets/json/public';
 
+import  chineseJs from '../../../../utils/index'
 // 拖拽
 
 import ComponentList from './drag/ComponentList.vue'; // 左侧列表组件
@@ -146,7 +135,12 @@ import { listenGlobalKeyDown } from '../../../../utils/shortcutKey';
 import { deepCopy } from '../../../../utils/utils';
 import generateID from '../../../../utils/generateID';
 export default {
-	computed: mapState(['componentData', 'curComponent', 'isClickComponent', 'canvasStyleData', 'editor']),
+	computed: {
+		...mapState(['componentData', 'isClickComponent', 'canvasStyleData', 'editor']),
+			curComponent() {
+				return this.$store.state.curComponent;
+			},
+},
 	mixins: [importPPT, exportImgMixins, templateMixins],
 	name: 'disabledHandle',
 	props: {
@@ -161,6 +155,9 @@ export default {
 	},
 	data() {
 		return {
+			isComponent:'',
+			rectList:publicData.rectList,
+			rectData:{},
 			colorData: colorJson,
 			filterData: filterJson,
 			borderColorData: [...gradientJson, ...colorJson.sort(() => Math.random() - 0.5)],
@@ -169,13 +166,20 @@ export default {
 			template: [{}],
 		};
 	},
-	mounted() {},
+	mounted() {
+	},
 	created() {
 		this.restore();
 		// 全局监听按键事件
 		listenGlobalKeyDown();
 	},
 	methods: {
+		chineseJsFun(index){
+			return chineseJs(index)
+		},
+		handleRect(item){
+			this.rectData = item;
+		},
 		handleClick(commend) {
 			switch (commend) {
 				case 'refresh': //刷
