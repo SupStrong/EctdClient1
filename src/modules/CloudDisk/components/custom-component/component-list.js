@@ -29,12 +29,13 @@ export const commonStyle = {
             yoTextBgcColor:"文本背景颜色",
             yoTextBgImg:"文字背景图",
             yoTextFillet:"文本圆角",
-            yoTextPadding:"文本间距",
+            yoTextPadding:0,
+            yoLineHeight:0,
             yoTextShadow:"文字阴影",
-            yoTextSize:"24",
+            yoTextSize:"16",
             yoTextStyle:"字体风格",
             yoTextFamily:"inherit",
-            yoTextWriting:"排列"
+            yoTextWriting:"inherit"
         },
     },
     {

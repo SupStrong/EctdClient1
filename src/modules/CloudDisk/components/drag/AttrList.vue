@@ -1,10 +1,9 @@
 <!-- TODO: 这个页面后续将用 JSX 重构 -->
 <template>
 	<div class="attr-list">
-		<el-form>
+		<el-form>	
 			<div v-for="({ key, label }, index) in styleKeys" style="display: inline-block" :key="index">
 				<!-- 文本的 -->
-				{{key}}
 				<el-tooltip v-if="key == 'yoTextWeight'" class="item" effect="dark" content="字体粗细" placement="bottom-start">
 					<i class="iconfont icon-zitijiacu" @click="handleChange('yoTextWeight', key)"></i>
 				</el-tooltip>
@@ -12,11 +11,11 @@
 					<i class="iconfont icon-zitixiahuaxian" @click="handleChange('yoDecoration', key)"></i>
 				</el-tooltip>
 				<el-tooltip v-else-if="key == 'yoTextSize'" class="item" effect="dark" content="文字大小" placement="bottom-start">
-					1
-					<i class="iconfont icon-jia_sekuai"></i>
-					{{key}}{{label}}121
-					<i class="iconfont icon-jian_sekuai"></i>
-					2
+					<div class="num">
+						<i class="iconfont icon-jian_sekuai"  @click="handleChange('yoTextSize',key, 'reduce')"></i>
+						<input v-model="curComponent.style[key]" />
+						<i class="iconfont icon-jia_sekuai"  @click="handleChange('yoTextSize',key, 'add')"></i>
+					</div>
 				</el-tooltip>
 				<el-tooltip v-else-if="key == 'yoTextColor'" class="item" effect="dark" content="文字颜色" placement="bottom-start">
 					<i class="iconfont icon-yanse" @click="handleChange('yoTextColor', key)"></i>
@@ -31,7 +30,19 @@
 					<i class="iconfont icon-zitijiacu" @click="handleChange('yoTextFillet', key)"></i>
 				</el-tooltip>
 				<el-tooltip v-else-if="key == 'yoTextPadding'" class="item" effect="dark" content="文本间距" placement="bottom-start">
-					<i class="iconfont icon-zitijiacu" @click="handleChange('yoTextPadding', key)"></i>
+						<el-dropdown trigger="click" :hide-on-click="false" placement="bottom">
+						<div @click="handleChange('fontline')"><i class="iconfont icon-hangjianju1"></i></div>
+						<el-dropdown-menu slot="dropdown" style="width: 300px">
+							<el-dropdown-item>
+								<span class="demonstration">字间距</span>
+								<el-slider  v-model="curComponent.style['yoTextPadding']" ></el-slider>	
+							</el-dropdown-item>
+							<el-dropdown-item>
+								<span class="demonstration">字间距</span>
+								<el-slider  v-model="curComponent.style['yoLineHeight']" ></el-slider>
+							</el-dropdown-item>
+						</el-dropdown-menu>
+					</el-dropdown>
 				</el-tooltip>
 				<el-tooltip v-else-if="key == 'yoTextShadow'" class="item" effect="dark" content="文本阴影" placement="bottom-start">
 					<i class="iconfont icon-zitijiacu" @click="handleChange('yoTextShadow', key)"></i>
@@ -43,7 +54,7 @@
 					<i class="iconfont icon-zitijiacu" @click="handleChange('yoTextFamily', key)"></i>
 				</el-tooltip>
 				<el-tooltip v-else-if="key == 'yoTextWriting'" class="item" effect="dark" content="排列方式" placement="bottom-start">
-					<i class="iconfont icon-zitijiacu" @click="handleChange('yoTextWriting', key)"></i>
+						<i class="iconfont icon-zitijiacu"  @click="handleChange('yoTextWriting',key)"></i>
 				</el-tooltip>
 				<!-- 图片 -->
 				<el-tooltip v-else-if="key == 'yoImgStyle'" class="item" effect="dark" content="图片样式" placement="bottom-start">
@@ -138,7 +149,7 @@ export default {
 		},
 	},
 	methods: {
-		handleChange(type, key) {
+		handleChange(type, key,i) {
 			let obj = this.curComponent.style[key];
 			switch (type) {
 				case 'yoTextWeight': // 粗细
@@ -148,6 +159,10 @@ export default {
 				case 'yoDecoration': // 下横线
 					var arr = ['auto','underline'];
 					obj === 'auto' ? this.curComponent.style[key] = 'underline' : this.curComponent.style[key] = 'auto';
+					break;
+				case 'yoTextWriting': // 下横线
+					var arr = ['inherit','tb'];
+					obj === 'inherit' ? this.curComponent.style[key] = 'tb' : this.curComponent.style[key] = 'inherit';
 					break;
 				case 'yoTextColor': // 文字颜色
 				this.$emit('update',{
@@ -164,6 +179,12 @@ export default {
 				case 'yoTextShadow': // 文字阴影
 					break;
 				case 'yoTextSize': // 文字颜色
+				  if(i === 'add'){
+						this.curComponent.style[key]++
+					}
+				  else{
+						this.curComponent.style[key]--
+					}
 					break;
 			}
 		},
@@ -177,6 +198,25 @@ export default {
 	padding: 20px;
 	padding-top: 0;
 	height: 100%;
+}
+.num{
+	display: flex;
+	.iconfont{
+		width: 32px;
+		height: 32px;
+		border: 1px solid;
+    border-color: rgba(43,59,74,0.3);
+    background-clip: padding-box;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	input{
+		width: 50px;
+		text-align: center;
+		border-top: 1px solid  rgba(43,59,74,0.3);
+		border-bottom: 1px solid  rgba(43,59,74,0.3);
+	}
 }
 </style>
 

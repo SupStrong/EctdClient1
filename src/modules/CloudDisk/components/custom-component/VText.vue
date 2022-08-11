@@ -15,7 +15,11 @@
             :style="{
                 'fontFamily':element.style.yoTextFamily,
                 'fontWeight':element.style.yoTextWeight,
+                'fontSize':element.style.yoTextSize + 'px',
                 'textDecoration':element.style.yoDecoration,
+                'writingMode':element.style.yoTextWriting,
+                'letterSpacing':element.style.yoTextPadding / 5 + 'px',
+                'lineHeight': element.style.yoLineHeight < element.style.yoTextSize ? element.style.yoTextSize + 'px' : element.style.yoLineHeight + 'px',
             }"
             @input="handleInput"
             v-html="element.propValue"

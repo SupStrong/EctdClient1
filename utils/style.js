@@ -9,6 +9,7 @@ export const styleData = [
     { key: 'yoTextFillet', label: '文本圆角' },
     { key: 'yoTextPadding', label: '文本间距' },
     { key: 'yoTextShadow', label: '文本阴影' },
+    { key: 'yoLineHeight' , label: '文字行间距'},
     { key: 'yoTextSize', label: '文字大小' },
     { key: 'yoTextStyle', label: '字体风格' },
     { key: 'yoTextFamily', label: '字体类型' },
